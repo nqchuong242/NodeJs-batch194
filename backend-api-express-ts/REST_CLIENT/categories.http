@@ -1,0 +1,22 @@
+###list
+GET http://localhost:8080/api/v1/categories
+
+
+### đăng lên
+POST http://localhost:8080/api/v1/categories
+Content-Type: application/json
+
+{
+    "name": "laptop"
+}
+
+### cập nhật
+PUT http://localhost:8080/api/v1/categories/5
+Content-Type: application/json
+
+{
+    "name": "mobile"
+}
+
+### xóa
+DELETE http://localhost:8080/api/v1/categories/5

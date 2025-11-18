@@ -1,0 +1,25 @@
+@baseUrl = http://localhost:8080
+
+### xác thực đăng nhập thành công
+POST {{baseUrl}}/api/v1/auth/login
+Content-Type: application/json
+
+{
+    "email": "camtien@gmail.com",
+    "password": "Tien0105@"
+}
+
+### xác thực đăng nhập thành công
+POST {{baseUrl}}/api/v1/auth/login
+Content-Type: application/json
+
+{
+    "email": "nqchuong.242@gmail.com",
+    "password": "Quocchuong1@"
+}
+
+### lấy thông tin profile người dùng
+GET {{baseUrl}}/api/v1/auth/profile
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2OTBjMzdkYzRjNGMyZDEzN2RlODkwYjUiLCJlbWFpbCI6Im5xY2h1b25nLjI0MkBnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NjM0Nzg0MTAsImV4cCI6MTc2NDA4MzIxMH0.kG2uxDVZgWmAd38JawQZ_gWZ-ZgDMnTJ0L09wxIdrlU
+
+

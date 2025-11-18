@@ -20,7 +20,7 @@ const categorySchema = new Schema({
         maxLength: 165,
     },
 },{
-    timestamps: true, //tự động thêm 2 trường createAt và updateAt
+    //timestamps: true, //tự động thêm 2 trường createAt và updateAt
     versionKey: false, //loại bỏ__v
     collection: 'categories' //tên collection trong database, nếu muốn đổi tên theo yêu cầu
 });

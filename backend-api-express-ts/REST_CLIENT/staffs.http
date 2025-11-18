@@ -1,0 +1,34 @@
+@baseUrl = http://localhost:8080
+
+###list
+GET {{baseUrl}}/api/v1/staffs
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2OTFhZGQ2Mzk4NmU1MGQ3NTgzZDljMmIiLCJlbWFpbCI6ImNhbXRpZW5AZ21haWwuY29tIiwicm9sZSI6InN0YWZmIiwiaWF0IjoxNzYzNDc2MjIxLCJleHAiOjE3NjQwODEwMjF9.7iPDxuoR5LNg5vIDOQKyi5SyAX_1gU7HXqMjf5MTyMQ
+
+### tìm theo id
+GET {{baseUrl}}/api/v1/staffs/1
+
+### tạo mới đăng lên
+POST {{baseUrl}}/api/v1/staffs
+Content-Type: application/json
+
+{
+    "firstName": "Cẩm",
+    "lastName": "Tiến",
+    "phone": "0766733326",
+    "email": "camtien@gmail.com",
+    "active": 1,
+    "password": "Tien0105@",
+    "role": "staff"
+}
+
+### cập nhật
+PUT {{baseUrl}}/api/v1/staffs/691adccf986e50d7583d9c1f
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2OTBjMzdkYzRjNGMyZDEzN2RlODkwYjUiLCJlbWFpbCI6Im5xY2h1b25nLjI0MkBnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NjM0Nzg0MTAsImV4cCI6MTc2NDA4MzIxMH0.kG2uxDVZgWmAd38JawQZ_gWZ-ZgDMnTJ0L09wxIdrlU
+
+{
+    "firstName": "Nguyễn Quốc"
+}
+
+### xóa
+DELETE {{baseUrl}}/api/v1/staffs/691add63986e50d7583d9c2b

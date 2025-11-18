@@ -20,7 +20,6 @@ const brandSchema = new Schema ({
         maxLenght: 165,
     }
 },{
-    timestamps: true, //tự động thêm 2 trường createAt và updateAt
     versionKey: false, //loại bỏ__v
     collection: 'brands' //tên collection trong database, nếu muốn đổi tên theo yêu cầu
 });

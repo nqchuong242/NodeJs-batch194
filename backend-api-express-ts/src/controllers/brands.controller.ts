@@ -1,41 +1,40 @@
 import { Request, Response } from "express"
 import createError from 'http-errors'
-import categoriesService from "../services/categories.service"
+import brandsService from "../services/brands.service"
 import { sendJsonSuccess, SUCCESS } from "../helpers/responseHandler";
 
 
-/**Get All Categories */
+/**Get All Brands */
 const findAll = async (req: Request, res: Response) => {
-    const categories = await categoriesService.findAll();
+    const brands = await brandsService.findAll();
     /* ban đầu dùng cách này, nhưng đã tạo folder helpers nên dùng cách dưới
     res.status(200).json({             //.status(200) là mặc định, không cần ghi cũng được
-        data: categories
+        data: brands
     });
     */
-    sendJsonSuccess({ res, data: categories });
+    sendJsonSuccess({ res, data: brands });
 };
 
-/**Find a Category by id */
+/**Find a Brand by id */
 const findById = async (req: Request, res: Response) => {
     const { id } = req.params; //id nhận được luôn là string
     //đảm bảo là có id nhập vào
     if (!id) {
         throw createError(400, 'ID not found');
     };
-    const category = await categoriesService.findById({ id }); // cần có đầu vào nên phải có ({}) 
+    const brand = await brandsService.findById({ id }); // cần có đầu vào nên phải có ({}) 
     /* ban đầu dùng cách này, nhưng đã tạo folder helpers nên dùng cách dưới
     res.status(200).json({
-        data: category
+        data: brand
     });
     */
-    sendJsonSuccess({ res, data: category });
+    sendJsonSuccess({ res, data: brand });
 };
 
-/**Create a new category */
+/**Create a new brand */
 const create = async (req: Request, res: Response) => {
-    console.log('===>req.body<===',req.body);
-    const newCategory = await categoriesService.create({ // cần có đầu vào nên phải có ({})
-        categoryName: req.body.categoryName, // req.body.categoryName trong đó, categoryName là 1 phần từ trong obj của database Category
+    const newBrand = await brandsService.create({ // cần có đầu vào nên phải có ({})
+        brandName: req.body.brandName, // req.body.brandName trong đó, brandName là 1 phần từ trong obj của database Brand
         description: req.body.description,
         slug: req.body.slug,
 
@@ -44,17 +43,17 @@ const create = async (req: Request, res: Response) => {
 
     /*ban đầu dùng cách này, nhưng đã tạo folder helpers nên dùng cách dưới
     res.status(201).json({
-        data: newCategory
+        data: newBrand
     });
     */
     sendJsonSuccess({
         res,
         status: SUCCESS.CREATED,
-        data: newCategory
+        data: newBrand
     });
 };
 
-/**Update a Category by id*/
+/**Update a Brand by id*/
 const updateById = async (req: Request, res: Response) => {
     console.log(req.params, req.body);
     const { id } = req.params
@@ -62,10 +61,10 @@ const updateById = async (req: Request, res: Response) => {
     if (!id) {
         throw createError(400, 'ID not found');
     };
-    const category = await categoriesService.updateById({
+    const brand = await brandsService.updateById({
         id,
         payload: {
-            categoryName: req.body.categoryName,
+            brandName: req.body.brandName,
             description: req.body.description,
             slug: req.body.slug,
         }
@@ -73,23 +72,23 @@ const updateById = async (req: Request, res: Response) => {
     sendJsonSuccess({
         res,
         status: SUCCESS.OK,
-        data: category
+        data: brand
     });
 
 };
 
-/**Delete a Category by id*/
+/**Delete a Brand by id*/
 const deleteById = async (req: Request, res: Response) => {
     const { id } = req.params;
     //đảm bảo là có id nhập vào
     if (!id) {
         throw createError(400, 'ID not found');
     };
-    const category = await categoriesService.deleteById({ id })
+    const brand = await brandsService.deleteById({ id })
     sendJsonSuccess({
         res,
         status: SUCCESS.OK,
-        data: category
+        data: brand
     });
 };
 

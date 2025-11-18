@@ -1,60 +1,64 @@
 import { Request, Response } from "express"
 import createError from 'http-errors'
-import categoriesService from "../services/categories.service"
+import staffsService from "../services/staffs.service"
 import { sendJsonSuccess, SUCCESS } from "../helpers/responseHandler";
 
 
-/**Get All Categories */
+/**Get All Staffs */
 const findAll = async (req: Request, res: Response) => {
-    const categories = await categoriesService.findAll();
+    const staffs = await staffsService.findAll();
     /* ban đầu dùng cách này, nhưng đã tạo folder helpers nên dùng cách dưới
     res.status(200).json({             //.status(200) là mặc định, không cần ghi cũng được
-        data: categories
+        data: staffs
     });
     */
-    sendJsonSuccess({ res, data: categories });
+    sendJsonSuccess({ res, data: staffs });
 };
 
-/**Find a Category by id */
+/**Find a Staff by id */
 const findById = async (req: Request, res: Response) => {
     const { id } = req.params; //id nhận được luôn là string
     //đảm bảo là có id nhập vào
     if (!id) {
         throw createError(400, 'ID not found');
     };
-    const category = await categoriesService.findById({ id }); // cần có đầu vào nên phải có ({}) 
+    const staff = await staffsService.findById({ id }); // cần có đầu vào nên phải có ({}) 
     /* ban đầu dùng cách này, nhưng đã tạo folder helpers nên dùng cách dưới
     res.status(200).json({
-        data: category
+        data: staff
     });
     */
-    sendJsonSuccess({ res, data: category });
+    sendJsonSuccess({ res, data: staff });
 };
 
-/**Create a new category */
+/**Create a new staff */
 const create = async (req: Request, res: Response) => {
-    console.log('===>req.body<===',req.body);
-    const newCategory = await categoriesService.create({ // cần có đầu vào nên phải có ({})
-        categoryName: req.body.categoryName, // req.body.categoryName trong đó, categoryName là 1 phần từ trong obj của database Category
-        description: req.body.description,
-        slug: req.body.slug,
-
+    const newStaff = await staffsService.create({ // cần có đầu vào nên phải có ({})
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        phone: req.body.phone,
+        email: req.body.email,
+        active: req.body.active,
+        password: req.body.password,
+/*         storeId: req.body.storeId,
+        manageId: req.body.manageId,     */
+        role: req.body.role,
     });
     //note: tạo mới thì status nên là 201
 
     /*ban đầu dùng cách này, nhưng đã tạo folder helpers nên dùng cách dưới
     res.status(201).json({
-        data: newCategory
+        data: newStaff
     });
     */
     sendJsonSuccess({
         res,
         status: SUCCESS.CREATED,
-        data: newCategory
+        data: newStaff
     });
 };
 
-/**Update a Category by id*/
+/**Update a Staff by id*/
 const updateById = async (req: Request, res: Response) => {
     console.log(req.params, req.body);
     const { id } = req.params
@@ -62,34 +66,40 @@ const updateById = async (req: Request, res: Response) => {
     if (!id) {
         throw createError(400, 'ID not found');
     };
-    const category = await categoriesService.updateById({
+    const staff = await staffsService.updateById({
         id,
         payload: {
-            categoryName: req.body.categoryName,
-            description: req.body.description,
-            slug: req.body.slug,
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            phone: req.body.phone,
+            email: req.body.email,
+            active: req.body.active,
+            password: req.body.password,
+/*             storeId: req.body.storeId,
+            manageId: req.body.manageId, */
+            role: req.body.role,
         }
     });
     sendJsonSuccess({
         res,
         status: SUCCESS.OK,
-        data: category
+        data: staff
     });
 
 };
 
-/**Delete a Category by id*/
+/**Delete a Staff by id*/
 const deleteById = async (req: Request, res: Response) => {
     const { id } = req.params;
     //đảm bảo là có id nhập vào
     if (!id) {
         throw createError(400, 'ID not found');
     };
-    const category = await categoriesService.deleteById({ id })
+    const staff = await staffsService.deleteById({ id })
     sendJsonSuccess({
         res,
         status: SUCCESS.OK,
-        data: category
+        data: staff
     });
 };
 

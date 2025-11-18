@@ -59,7 +59,7 @@ const productSchema = new Schema({
         ref: 'Brand',
     },
 }, {
-    timestamps: true, //tự động thêm 2 trường createAt và updateAt
+    //timestamps: true, //tự động thêm 2 trường createAt và updateAt
     versionKey: false, //loại bỏ__v
     collection: 'products' //tên collection trong database, nếu muốn đổi tên theo yêu cầu
 });

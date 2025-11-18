@@ -1,15 +1,18 @@
-import { fake_categories } from "../mockup/mockData"
 import createError from 'http-errors'
-import { ICategory, ICategoryDTO } from "../types/categories.type"
+import { ICategoryDTO } from "../types/categories.type"
+import Category from "../models/Category.model";
 
 /**Get All Categories */
-const findAll = () : ICategory[] => {
-    return fake_categories
+const findAll = async ()  => {
+    // SELECT * FROM categories
+    const categories = await Category.find()
+    return categories
 };
 
 /**Find a Category by id */
-const findById = ({id}:{id:string}) => {
-const category = fake_categories.find(c => c.id === parseInt(id));
+const findById = async ({id}:{id:string}) => {
+    //SELECT * FROM categoris WHERE id=?
+    const category = await Category.findById(id);
     //Phải kiểm tra xem có tồn tại thật không, nếu không thì trả về 404
     if (!category) {
         throw createError(404, "Category Not Found");
@@ -18,44 +21,57 @@ const category = fake_categories.find(c => c.id === parseInt(id));
 };
 
 /**Create a new category */
-const create = ({name}: ICategoryDTO) : ICategory=> {
-    const newCategory = {
-        id: fake_categories.length + 1,
-        name, // đúng là sẽ viết name: name, nhưng ta ghi tắt được
-    }
-    fake_categories.push(newCategory);
-    return newCategory;
+const create = async (categoryDto: ICategoryDTO) => {
+    const category = new Category({
+        categoryName: categoryDto.categoryName,
+        description: categoryDto.description,
+        slug: categoryDto.slug
+    });
+    const result = await category.save()
+    return result;
 }
 
 /**Update a Category by id*/
-const updateById = ({
+const updateById = async ({
     id, //id là phải có, còn các phần tử kia ở sau
-    payload
+    payload //và các option còn lại
 }: {
     id: string, 
     payload: Partial<ICategoryDTO> //Partial: kiểu tùy chọn
-}) : ICategory => {
+})=> {
     //b1: Check xem trong database có tồn tại có id không
-    let category = fake_categories.find(c => c.id === parseInt(id));
+    const category = await Category.findById(id);
     if (!category) {
         throw createError(404, "Category Not Found");
     };
-    //b2: cập nhật phần tử khi có tồn tại
-    if(payload.name){ //vì payload là phần từ tùy chọn trong obj, nên phải check xem có phần tử đó không
-        category = { ...category, name: payload.name };
+    //b2: xử lý update khi có thay đổi
+    //Object.assign(category,payload);//trộn dữ liệu mới và cũ--bắt buộc update đủ các trường
+
+    if(payload.categoryName !== undefined){ //!== undefined → Chỉ update nếu client có gửi dữ liệu
+        category.categoryName = payload.categoryName;
     };
+    if(payload.description !== undefined){
+        category.description = payload.description;
+    };
+    if(payload.slug !== undefined){
+        category.slug = payload.slug;
+    };
+
+    //lưu lại database
+    await category.save();
     return category;
 };
 
 /**Delete a Category by id*/
-const deleteById = ({id}:{id:string}) : ICategory => { //nếu 1 giá trị thì ghi vậy cho gọn
+const deleteById = async ({id}:{id:string}) => { //nếu 1 giá trị thì ghi vậy cho gọn
     //b1: Check xem trong database có tồn tại có id không
-    let category = fake_categories.find(c => c.id === parseInt(id));
+    const category = await Category.findById(id);
     if (!category) {
         throw createError(404, "Category Not Found");
     }
     //b2: xóa nếu có tồn tại
-    //const results = fake_categories.filter(c => c.id !== parseInt(id));
+    //const result = fake_categories.filter(c => c.id !== parseInt(id));
+    await Category.findByIdAndDelete(category._id);
     return category;
 }
 

@@ -13,17 +13,34 @@ const customerSchema = new Schema ({
         unique: false,
         maxLength: 50,
     },
-    phone:{
+    phone: {
         type: String,
         required: true,
         unique: true,
         maxLength: 50,
+        validate: {
+            validator: function (v:any) {
+                return /\d{3}-\d{3}-\d{4}/.test(v);
+            },
+            message: (props:any) => `${props.value} is not a valid phone number!`,
+        },
     },
     email:{
         type: String,
         required: true,
         unique: true,
         maxLength: 50,
+        validate: {
+            validator: function (v: string) {
+              //Nếu email đã được sửa đổi hoặc là mới, thì thực hiện kiểm tra định dạng
+              //Nếu không thì bỏ qua kiểm tra
+              if (this.isModified('email') || this.isNew) {
+                return /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(v);
+              }
+              return true; // Skip validation if email is unchanged
+            },
+            message: (props: {value: string}) => `${props.value} is not a valid email!`,
+          },
     },
     street:{
         type: String,
@@ -55,8 +72,14 @@ const customerSchema = new Schema ({
         unique: false,
         maxLength: 255,
     },
+    //Có khoá tài khoản không ?
+    active: {
+        type: Boolean,
+        default: true,
+        enum: ['true', 'false'],
+    },
 },{
-    timestamps: true, //tự động thêm 2 trường createAt và updateAt
+    //timestamps: true, //tự động thêm 2 trường createAt và updateAt
     versionKey: false, //loại bỏ__v
     collection: 'customers' //tên collection trong database, nếu muốn đổi tên theo yêu cầu
 });

@@ -3,6 +3,7 @@ import { Request, Response, NextFunction } from 'express';
 import { verifyToken } from '../utils/jwt';
 import Staff from '../models/Staff.model';
 
+//Hàm middleware để xác thực người dùng dựa trên jwt token
 export const authenticateToken = async (req: Request, res: Response, next: NextFunction) => {
   //Get the jwt token from the head
   const authHeader = req.headers['authorization'];
@@ -38,7 +39,7 @@ export const authenticateToken = async (req: Request, res: Response, next: NextF
     }
 };
 
-
+//Hàm middleware để phân quyền người dùng dựa trên role
 export const authorize = (roles: string[] = []) => {
     // roles param can be a single role string (e.g. Role.Staff or 'Staff') 
     // or an array of roles (e.g. [Role.Admin, Role.Staff] or ['Admin', 'Staff'])

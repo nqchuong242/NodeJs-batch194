@@ -1,0 +1,28 @@
+@baseUrl = http://localhost:8080
+
+###list
+GET {{baseUrl}}/api/v1/categories
+
+### tìm theo id
+GET {{baseUrl}}/api/v1/categories/69047d8d8ab80fdbce43444d
+
+
+### tạo mới đăng lên
+POST {{baseUrl}}/api/v1/categories
+Content-Type: application/json
+
+{
+    "categoryName": "Tablet",
+    "slug": "tablet"
+}
+
+### cập nhật
+PUT {{baseUrl}}/api/v1/categories/690f65049ad7d1e041174e1f
+Content-Type: application/json
+
+{
+    "description": "Tablet xịn xò "
+}
+
+### xóa
+DELETE {{baseUrl}}/api/v1/categories/69048b0dea2eb91d5feaa21f

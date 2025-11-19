@@ -1,0 +1,13 @@
+@baseUrl = http://localhost:8080
+
+###list
+GET {{baseUrl}}/students
+
+### tạo mới đăng lên
+POST {{baseUrl}}/students
+Content-Type: application/json
+
+{
+    "fullName": "Chương 2",
+    "age": 30
+}

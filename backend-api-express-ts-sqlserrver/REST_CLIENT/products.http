@@ -1,0 +1,42 @@
+@baseUrl = http://localhost:8080
+
+### list products
+GET {{baseUrl}}/api/v1/products
+
+### get product by id
+GET {{baseUrl}}/api/v1/products/1
+
+### create product
+POST {{baseUrl}}/api/v1/products
+Content-Type: application/json
+
+{
+    "productName": "Samsung Galaxy S23",
+    "price": 1500,
+    "discount": 10,
+    "description": "Nice product",
+    "modelYear": 2025,
+    "slug": "samsung-galaxy-s23",
+    "thumbnail": "samsung-galaxy-s23.jpg",
+    "stock": 10,
+    "categoryId": "6908d8f5419c616c807d8fcc",
+    "brandId": "6908dc68d8bc5267a6a79aed"
+}
+
+### update product
+PUT {{baseUrl}}/api/v1/products/1
+Content-Type: application/json
+
+{
+    "productName": "Sample Updated",
+    "price": 900,
+    "discount": 5,
+    "modelYear": 2025,
+    "slug": "sample-product-upd",
+    "stock": 5,
+    "categoryId": "",
+    "brandId": ""
+}
+
+### delete product
+DELETE {{baseUrl}}/api/v1/products/1

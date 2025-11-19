@@ -1,0 +1,29 @@
+@baseUrl = http://localhost:8080
+
+###list
+GET {{baseUrl}}/api/v1/brands
+
+### tìm theo id
+GET {{baseUrl}}/api/v1/brands/1
+
+
+### tạo mới đăng lên
+POST {{baseUrl}}/api/v1/brands
+Content-Type: application/json
+
+{
+    "brandName": "Apple",
+    "slug":"Apple",
+    "description": "Một thương hiệu nổi tiếng"
+}
+
+### cập nhật
+PUT {{baseUrl}}/api/v1/brands/1
+Content-Type: application/json
+
+{
+    "description": "laptop có bán trả góp"
+}
+
+### xóa
+DELETE {{baseUrl}}/api/v1/brands/6904979bfaf661e24a0cfe6b

@@ -22,7 +22,7 @@ mongoose
 
     //expess app listen
     app.listen(PORT, () => {
-      console.log(`Example app listening on port http://localhost:${PORT}`)
+      console.log(`===> Example app listening on port http://localhost:${PORT}`)
     });
   })
   .catch((err) => {

@@ -1,0 +1,44 @@
+@baseUrl = http://localhost:8080
+
+### list customers
+GET {{baseUrl}}/api/v1/customers
+
+### get customer by id
+GET {{baseUrl}}/api/v1/customers/1
+
+### create customer
+POST {{baseUrl}}/api/v1/customers
+Content-Type: application/json
+
+{
+    "firstName": "Nguyen",
+    "lastName": "Van B",
+    "phone": "1234567899",
+    "email": "b@example.com",
+    "street": "456 tôn dản",
+    "city": "Danang",
+    "state": "DN",
+    "zipCode": "999",
+    "password": "password123",
+    "active": true
+}
+
+### update customer
+PUT {{baseUrl}}/api/v1/customers/1
+Content-Type: application/json
+
+{
+    "firstName": "Nguyen",
+    "lastName": "Van B",
+    "phone": "0900000001",
+    "email": "b@example.com",
+    "street": "456 Example St",
+    "city": "HCMC",
+    "state": "HCM",
+    "zipCode": "70000",
+    "password": "newpass",
+    "active": true
+}
+
+### delete customer
+DELETE {{baseUrl}}/api/v1/customers/1

@@ -1,0 +1,44 @@
+@baseUrl = http://localhost:8080
+
+### list orders
+GET {{baseUrl}}/api/v1/orders
+
+### get order by id
+GET {{baseUrl}}/api/v1/orders/1
+
+### create order
+POST {{baseUrl}}/api/v1/orders
+Content-Type: application/json
+
+{
+    "orderStatus": 1,
+    "orderDate": "2025-11-03",
+    "requireDate": null,
+    "shippingDate": "2025-11-05",
+    "orderNote": "Deliver to door",
+    "street": "123 Main",
+    "city": "Hanoi",
+    "state": "HN",
+    "paymentType": 1,
+    "customerId": "",
+    "staffId": ""
+}
+
+### update order
+PUT {{baseUrl}}/api/v1/orders/1
+Content-Type: application/json
+
+{
+    "orderStatus": 2,
+    "orderDate": "2025-11-03",
+    "shippingDate": "2025-11-06",
+    "street": "456 Other St",
+    "city": "HCMC",
+    "state": "HCM",
+    "paymentType": 2,
+    "customerId": "",
+    "staffId": ""
+}
+
+### delete order
+DELETE {{baseUrl}}/api/v1/orders/1
